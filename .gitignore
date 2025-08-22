@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+.venv/
+.env
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# PyTorch
+*.pt
+*.pth
+*.ckpt
+
+# Data directories - too large for git
+cifar5_run/images/
+cifar5_run/_torchvision/
+cifar5_run/artifacts/*.pt
+
+# Generated outputs - can be recreated
+cifar5_run/labeling_progress.json
+cifar5_run/labeling_detailed.jsonl
+cifar5_run/labels_llm.csv
+cifar5_run/review_labels.csv
+cifar5_run/artifacts/confusion_matrix.png
+cifar5_run/artifacts/classification_report.txt
+*_bench_report.json
+bench_report.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# API keys and secrets
+.env
+*.key
+secrets.json
+
+# Logs
+*.log
+logs/
+
+# UV lock file - keep pyproject.toml but lock can be regenerated
+uv.lock
+
+# Results that can be regenerated
+results/
+outputs/
+experiments/
+
+# Large datasets
+*.tar.gz
+*.zip
+*.7z
+dataset/
+data/
+raw_data/ 
