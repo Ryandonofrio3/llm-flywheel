@@ -1,0 +1,225 @@
+{
+  "summary": {
+    "student": {
+      "mean_ms": 8.542060852050781,
+      "p50_ms": 8.054018020629883,
+      "p95_ms": 16.029930114746094,
+      "rps": 117.06776822596852
+    },
+    "llm": {
+      "mean_ms": 1468.067979812622,
+      "p50_ms": 1385.221004486084,
+      "p95_ms": 2042.819058895111,
+      "rps": 0.6811673667370879
+    },
+    "speedup": {
+      "mean": 171.86344200066986,
+      "p50": 171.99129688286314,
+      "p95": 127.43780192877456
+    }
+  },
+  "student_results": [
+    {
+      "prediction": "pear",
+      "confidence": 0.8212703466415405,
+      "latency_ms": 16.402244567871094
+    },
+    {
+      "prediction": "orange",
+      "confidence": 0.9425641298294067,
+      "latency_ms": 8.04901123046875
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.9358034133911133,
+      "latency_ms": 7.887840270996094
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.45883962512016296,
+      "latency_ms": 7.620811462402344
+    },
+    {
+      "prediction": "sweet_pepper",
+      "confidence": 0.7663512229919434,
+      "latency_ms": 8.0718994140625
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.9268399477005005,
+      "latency_ms": 8.536100387573242
+    },
+    {
+      "prediction": "sweet_pepper",
+      "confidence": 0.9788156747817993,
+      "latency_ms": 8.014917373657227
+    },
+    {
+      "prediction": "mushroom",
+      "confidence": 0.9447060227394104,
+      "latency_ms": 8.378267288208008
+    },
+    {
+      "prediction": "orange",
+      "confidence": 0.8078402876853943,
+      "latency_ms": 7.694005966186523
+    },
+    {
+      "prediction": "mushroom",
+      "confidence": 0.8859009146690369,
+      "latency_ms": 7.666826248168945
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.8977235555648804,
+      "latency_ms": 8.420944213867188
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.8881282806396484,
+      "latency_ms": 8.059024810791016
+    },
+    {
+      "prediction": "sweet_pepper",
+      "confidence": 0.6885312795639038,
+      "latency_ms": 8.444070816040039
+    },
+    {
+      "prediction": "sweet_pepper",
+      "confidence": 0.8939615488052368,
+      "latency_ms": 8.955955505371094
+    },
+    {
+      "prediction": "pear",
+      "confidence": 0.9782847762107849,
+      "latency_ms": 8.71586799621582
+    },
+    {
+      "prediction": "pear",
+      "confidence": 0.5874894261360168,
+      "latency_ms": 8.048772811889648
+    },
+    {
+      "prediction": "mushroom",
+      "confidence": 0.9869567155838013,
+      "latency_ms": 7.846832275390625
+    },
+    {
+      "prediction": "mushroom",
+      "confidence": 0.9339726567268372,
+      "latency_ms": 8.130073547363281
+    },
+    {
+      "prediction": "orange",
+      "confidence": 0.8206196427345276,
+      "latency_ms": 8.02302360534668
+    },
+    {
+      "prediction": "orange",
+      "confidence": 0.8066138029098511,
+      "latency_ms": 7.874727249145508
+    }
+  ],
+  "llm_results": [
+    {
+      "prediction": "pear",
+      "confidence": 0.95,
+      "latency_ms": 1762.8660202026367
+    },
+    {
+      "prediction": "orange",
+      "confidence": 0.95,
+      "latency_ms": 2049.527168273926
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.95,
+      "latency_ms": 1887.6709938049316
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.95,
+      "latency_ms": 1144.320011138916
+    },
+    {
+      "prediction": "sweet_pepper",
+      "confidence": 0.99,
+      "latency_ms": 1915.3649806976318
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.95,
+      "latency_ms": 1401.319980621338
+    },
+    {
+      "prediction": "sweet_pepper",
+      "confidence": 0.95,
+      "latency_ms": 1823.3728408813477
+    },
+    {
+      "prediction": "mushroom",
+      "confidence": 0.95,
+      "latency_ms": 1489.4089698791504
+    },
+    {
+      "prediction": "orange",
+      "confidence": 0.95,
+      "latency_ms": 1203.031063079834
+    },
+    {
+      "prediction": "mushroom",
+      "confidence": 0.99,
+      "latency_ms": 1184.556007385254
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.95,
+      "latency_ms": 1241.8808937072754
+    },
+    {
+      "prediction": "apple",
+      "confidence": 0.95,
+      "latency_ms": 1078.739881515503
+    },
+    {
+      "prediction": "sweet_pepper",
+      "confidence": 0.95,
+      "latency_ms": 1852.0679473876953
+    },
+    {
+      "prediction": "sweet_pepper",
+      "confidence": 0.95,
+      "latency_ms": 1095.2339172363281
+    },
+    {
+      "prediction": "pear",
+      "confidence": 0.95,
+      "latency_ms": 1369.12202835083
+    },
+    {
+      "prediction": "sweet_pepper",
+      "confidence": 0.95,
+      "latency_ms": 1214.853286743164
+    },
+    {
+      "prediction": "mushroom",
+      "confidence": 0.95,
+      "latency_ms": 1690.4878616333008
+    },
+    {
+      "prediction": "mushroom",
+      "confidence": 0.95,
+      "latency_ms": 1287.4438762664795
+    },
+    {
+      "prediction": "orange",
+      "confidence": 0.99,
+      "latency_ms": 1056.5969944000244
+    },
+    {
+      "prediction": "orange",
+      "confidence": 0.95,
+      "latency_ms": 1613.494873046875
+    }
+  ]
+}

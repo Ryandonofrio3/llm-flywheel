@@ -1,0 +1,13 @@
+{
+  "overall_stats": {
+    "total_predictions": 200,
+    "overall_accuracy": 0.9,
+    "mean_confidence": 0.8107717633247375,
+    "median_confidence": 0.8844445943832397
+  },
+  "confidence_bins": [
+    {
+      "bin_start": 0.0,
+      "bin_end": 0.1,
+      "bin_center": 0.05,
+      "count": 

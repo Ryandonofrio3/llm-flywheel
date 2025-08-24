@@ -28,5 +28,16 @@ export:
 one:
 	$(PY) infer_one.py --artifacts $(ART) --image $(TEST)/apple/apple_00000.jpg
 
+cost:
+	$(PY) cost_worksheet.py --scenario
+
+latency:
+	$(PY) latency_comparison.py --samples 20
+
+confidence:
+	$(PY) confidence_analysis.py --sample-size 200
+
+analyze: cost latency confidence
+
 clean:
 	rm -rf $(OUT)/_torchvision __pycache__
