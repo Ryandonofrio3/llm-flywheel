@@ -1,130 +1,58 @@
-# LLM Data Flywheel
+# LLM as Labelers
 
-> **Thesis**: Use an LLM as a temporary teacher to bootstrap labels, distill into a small model, and create a self-improving data flywheel.
+Use an LLM to create training labels, then distill that knowledge into a smaller, faster model.
 
-**The cycle**: LLM labels → Train student → Deploy cascade → Collect errors → Targeted relabel → Improve
+## What this does
 
-## 🎯 Demo: CIFAR5 Classification
+This repo shows how to use Gemini 2.5 Flash to label images from CIFAR-100, then train a small MobileNet model on those labels. The idea is that you get most of the LLM's accuracy but with much faster inference.
 
-This repo demonstrates the flywheel using a 5-class image classification task:
-- **Teacher**: Gemini 2.5 Flash vision model via OpenRouter
-- **Student**: MobileNet v3 Small (6MB)
-- **Result**: 87.4% accuracy, 900+ images/sec on Apple Silicon
-
-## 🚀 Quick Start
+## Setup
 
 ```bash
-# Setup
 git clone <this-repo>
 cd llm-as-labelers
 uv sync
-
-# Set your OpenRouter API key
 export OPENROUTER_API_KEY="your_key_here"
+```
 
-# Run the full pipeline
+## Usage
+
+Run the whole pipeline:
+```bash
 uv run cifar_distill.py --step all
-
-# Analyze results
-uv run plot_confusion.py
-uv run simple_speed_test.py --compare_devices
 ```
 
-## 📋 Pipeline Steps
-
-### 1. Data Prep
+Or run individual steps:
 ```bash
-uv run cifar_distill.py --step prep
-```
-- Downloads CIFAR-100
-- Filters to 5 classes: apple, mushroom, orange, pear, sweet_pepper  
-- Upscales to 224x224, applies sharpening
-- Saves train (2500) and test (500) images
-
-### 2. LLM Labeling
-```bash
-uv run cifar_distill.py --step label --max_label 1500
-```
-- Dual-pass labeling with consistency checks
-- Base64 encodes images for vision API
-- Progress tracking with resume capability
-- Outputs `review_labels.csv` for human QC
-
-### 3. Student Training
-```bash
-uv run cifar_distill.py --step train
-```
-- Trains MobileNet on LLM labels
-- Data augmentation during training
-- Evaluates on original CIFAR test set
-- Saves model + confusion matrix
-
-### 4. Analysis
-```bash
-uv run plot_confusion.py      # Visualize performance
-uv run simple_speed_test.py   # Benchmark inference speed
+uv run cifar_distill.py --step prep    # Download and prepare CIFAR data
+uv run cifar_distill.py --step label   # Get LLM labels
+uv run cifar_distill.py --step train   # Train student model
 ```
 
-## 📊 Results
+## What it does
 
-| Metric | Value |
-|--------|-------|
-| **Accuracy** | 87.4% (vs 20% random) |
-| **Speed** | 900 img/s on Apple Silicon |
-| **Model Size** | 6MB MobileNet |
-| **Best Class** | Mushroom (95% F1) |
-| **Hardest** | Pear vs Apple confusion |
+1. Takes CIFAR-100 and filters it down to 5 classes: apple, mushroom, orange, pear, sweet_pepper
+2. Sends images to Gemini 2.5 Flash for labeling (with dual-pass consistency checking)
+3. Trains a MobileNet v3 Small on those labels
+4. Evaluates on the original CIFAR test set
 
-## 🔄 The Flywheel in Action
+## Results
 
-1. **Bootstrap**: LLM creates initial training set
-2. **Distill**: Train fast, small student model  
-3. **Deploy**: Student handles most traffic (cheap)
-4. **Cascade**: LLM processes uncertain cases
-5. **Feedback**: Collect disagreements and edge cases
-6. **Iterate**: Retrain with focused examples
+The student model gets about 87% accuracy and runs at 900+ images/second on Apple Silicon. The model file is only 6MB.
 
-## 🧠 Why This Beats "LLM Everywhere"
+## Files
 
-- **10x cheaper**: Student inference vs repeated LLM calls
-- **100x faster**: Local model vs API latency  
-- **Better reliability**: Deterministic student behavior
-- **Data leverage**: Each error improves the system
-- **Compound gains**: Flywheel accelerates over time
+- `cifar_distill.py` - Main script that does everything
+- `plot_confusion.py` - Visualize the confusion matrix
+- `throughput.py` - Test inference speed
+- `blog.md` - Longer explanation of the approach
 
-## 📁 Core Files
+## Why this matters
 
-```
-cifar_distill.py      # Main pipeline script
-simple_speed_test.py  # Performance benchmarking  
-plot_confusion.py     # Results visualization
-blog.md              # Detailed explanation
-cost_breakeven.py    # Economics analysis
-pyproject.toml       # Dependencies
-```
+Instead of calling an expensive LLM API for every prediction, you can:
+1. Use the LLM once to create a training set
+2. Train a small model that captures most of the LLM's knowledge
+3. Deploy the small model for fast, cheap inference
+4. Fall back to the LLM only for uncertain cases
 
-## 🔧 Key Implementation Details
-
-- **Dual-pass labeling**: Consistency check prevents hallucinations
-- **Progress tracking**: Resume interrupted labeling runs
-- **Device optimization**: Auto-detects MPS/CUDA acceleration  
-- **Careful API format**: Fixed OpenRouter vision payload bug
-- **Production ready**: Error handling, logging, configurability
-
-## 💡 Extending to Your Use Case
-
-1. **Replace data source**: Swap CIFAR for your domain
-2. **Adapt prompts**: Modify classification categories/instructions
-3. **Choose student**: XGBoost for tabular, BERT for text, etc.
-4. **Tune cascade**: Adjust confidence thresholds
-5. **Add feedback loop**: Connect production errors to retraining
-
-## 📚 Learn More
-
-- Read the full explanation in [`blog.md`](blog.md)
-- See cost analysis in [`cost_breakeven.py`](cost_breakeven.py)
-- Explore variations in the experiments directory
-
----
-
-*Demonstrates LLM → student knowledge distillation for efficient, self-improving ML systems.* 
+This is especially useful when you need to classify thousands of items quickly or want to run inference locally. 
